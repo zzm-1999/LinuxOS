@@ -1,0 +1,32 @@
+#include"my.h"
+static int share=0;
+static pthread_rwlock_t rwlock;
+void *reader(void *param)
+{
+int i=(int) param;
+while(1)
+{
+pthread_rwlock_rdlock(&rwlock);
+fprintf(stderr,"reader -- %d:the share =%d\n",i,share);
+pthread_rwlock_unlock(&rwlock);
+}
+return NULL;
+}
+void *writer(void *param)
+{
+int i=(int)param;
+while(1)
+{
+pthread_rwlock_rdlock(&rwlock);
+share++;
+fprintf(stderr,"reader -- %d:the share =%d\n",i,share);
+pthread_rwlock_unlock(&rwlock);
+sleep(1);
+}
+return NULL;
+}
+int main()
+{
+pthread_t tid[TN];
+pthread_rw
+}
